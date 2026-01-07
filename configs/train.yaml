@@ -1,0 +1,15 @@
+defaults:
+  - data: default
+  - model: distilbert
+  - mlflow: default
+  - _self_
+
+seed: 42
+
+trainer:
+  accelerator: auto
+  devices: auto
+  max_epochs: 1
+  log_every_n_steps: 10
+
+output_dir: outputs

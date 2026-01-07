@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.eggs/
+
+# Environments
+.venv/
+venv/
+.env
+
+# Hydra
+outputs/
+.multirun/
+
+# Data & models (DO NOT commit)
+data/raw/*.csv
+data/raw/*.zip
+outputs/
+models/
+
+# DVC
+.dvc/cache
+
+# OS
+.DS_Store

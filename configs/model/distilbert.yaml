@@ -1,0 +1,6 @@
+name: distilbert
+
+pretrained_model_name: distilbert-base-uncased
+learning_rate: 2e-5
+weight_decay: 0.01
+warmup_steps: 0
