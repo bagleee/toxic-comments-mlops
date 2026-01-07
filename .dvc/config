@@ -1,0 +1,7 @@
+[core]
+    remote = myremote
+['remote "gdrive_remote"']
+    url = gdrive://1WJVXGde5tQCPr92T1fVvKtQdmePNQMJ_/dvcstore
+    gdrive_acknowledge_abuse = true
+['remote "myremote"']
+    url = yadisk://toxic-comments-mlops

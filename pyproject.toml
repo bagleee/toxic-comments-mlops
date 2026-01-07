@@ -31,6 +31,7 @@ dvc-gdrive = "^3.0.1"
 # Utils
 tqdm = "^4.66.4"
 matplotlib = "^3.9.1"
+dvc-yadisk = "^0.1.3"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.7.1"

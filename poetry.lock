@@ -1468,6 +1468,25 @@ docs = ["mkdocs (>=1.5.2,<2)", "mkdocs-gen-files (>=0.5.0,<1)", "mkdocs-material
 tests = ["pytest (>=7,<9)", "pytest-celery (<1)", "pytest-cov (>=4.1.0)", "pytest-mock", "pytest-rerunfailures", "pytest-sugar", "pytest-test-utils (>=0.0.6)"]
 
 [[package]]
+name = "dvc-yadisk"
+version = "0.1.3"
+description = "Yandex Disk remote storage plugin for DVC"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "dvc_yadisk-0.1.3-py3-none-any.whl", hash = "sha256:7fc525633fc972a3bbfb00a450222e82537d7d30b8eaccc100eff35a772eb800"},
+    {file = "dvc_yadisk-0.1.3.tar.gz", hash = "sha256:14eb3d36e751cde591834e93a24e7bd0d61e5faa46ad6ff0308c18defa830daf"},
+]
+
+[package.dependencies]
+dvc = ">=3.0.0"
+yadisk = ">=3.0.0"
+
+[package.extras]
+dev = ["mypy (>=1.0)", "pytest (>=7.0)", "pytest-asyncio (>=0.21)", "pytest-mock (>=3.10)", "ruff (>=0.1.0)"]
+
+[[package]]
 name = "entrypoints"
 version = "0.4"
 description = "Discover and load entry points from installed packages."
@@ -6179,6 +6198,27 @@ markupsafe = ">=2.1.1"
 watchdog = ["watchdog (>=2.3)"]
 
 [[package]]
+name = "yadisk"
+version = "3.4.0"
+description = "Библиотека-клиент REST API Яндекс.Диска / Yandex.Disk REST API client library"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "yadisk-3.4.0-py3-none-any.whl", hash = "sha256:c32d64a3b62812d6ed68ef7a7aefb9404d9b6d8ba923abe2406e0d45aff717c9"},
+    {file = "yadisk-3.4.0.tar.gz", hash = "sha256:6a0a79fb77fe248813f6378fedb17966165950c30cc278ceb660b04d75a9f965"},
+]
+
+[package.extras]
+aiohttp = ["aiohttp"]
+async-defaults = ["aiofiles", "httpx"]
+async-files = ["aiofiles"]
+httpx = ["httpx"]
+pycurl = ["pycurl"]
+requests = ["requests"]
+sync-defaults = ["requests"]
+
+[[package]]
 name = "yarl"
 version = "1.22.0"
 description = "Yet another URL library"
@@ -6364,4 +6404,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<3.13"
-content-hash = "2e71daf4335247e15fca759ecaf2c15def804da323a4a418b42c423eaf673965"
+content-hash = "fe529bb2ab4b0672555168c967e7d94b101f8a3f0430fbcf1b4a563ec66e248b"
