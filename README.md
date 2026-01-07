@@ -1,6 +1,7 @@
 # Detecting toxic comments in online discussions
 
 ## Problem statement
+
 The goal of this project is to build a system that automatically detects toxic comments in online discussions.
 Toxic content includes insults, threats, obscene language, and hate speech.
 
@@ -10,6 +11,7 @@ simultaneously.
 **Labels (6):** `toxic`, `severe_toxic`, `obscene`, `threat`, `insult`, `identity_hate`.
 
 ## Data
+
 Dataset: Kaggle competition **Jigsaw Toxic Comment Classification Challenge**.
 
 The code expects the file:
@@ -19,6 +21,7 @@ The code expects the file:
 Data is managed via **DVC** (do not commit data to Git).
 
 ## Metrics
+
 Main metric: mean ROC-AUC across 6 labels.
 We also log per-class ROC-AUC and macro F1.
 
@@ -98,6 +101,7 @@ poetry run python -m toxic_comments.train model=distilbert trainer.max_epochs=1
 ```
 
 Outputs:
+
 - `outputs/model/` contains saved model artifacts
 - `plots/` contains at least 3 metric plots
 
@@ -124,6 +128,7 @@ poetry run python -m toxic_comments.export_onnx
 ```
 
 File:
+
 - `outputs/model/model.onnx`
 
 ### TensorRT (optional)

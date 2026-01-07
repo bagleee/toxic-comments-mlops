@@ -11,7 +11,6 @@ from omegaconf import DictConfig
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
 from toxic_comments import LABELS
-from toxic_comments.utils import ensure_data
 
 
 def _predict_pytorch(model_dir: Path, text: str) -> Dict[str, float]:
@@ -30,7 +29,9 @@ def _predict_pytorch(model_dir: Path, text: str) -> Dict[str, float]:
 def _predict_onnx(onnx_path: Path, model_dir: Path, text: str) -> Dict[str, float]:
     tokenizer = AutoTokenizer.from_pretrained(model_dir)
 
-    enc = tokenizer(text, truncation=True, padding="max_length", max_length=192, return_tensors="np")
+    enc = tokenizer(
+        text, truncation=True, padding="max_length", max_length=192, return_tensors="np"
+    )
     session = ort.InferenceSession(str(onnx_path))
 
     inputs = {

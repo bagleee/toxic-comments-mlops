@@ -12,7 +12,12 @@ from pytorch_lightning.loggers import MLFlowLogger
 
 from toxic_comments.baseline import save_baseline, train_baseline
 from toxic_comments.data import extract_xy, load_train_csv, make_split
-from toxic_comments.distilbert_module import DistilBertArtifacts, DistilBertLightning, build_distilbert, make_loaders
+from toxic_comments.distilbert_module import (
+    DistilBertArtifacts,
+    DistilBertLightning,
+    build_distilbert,
+    make_loaders,
+)
 from toxic_comments.plotting import save_history_plots
 from toxic_comments.utils import ensure_data, get_git_commit_hash, mkdir_clean
 

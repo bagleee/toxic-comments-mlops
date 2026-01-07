@@ -28,11 +28,11 @@ def load_train_csv(path: Path, max_rows: Optional[int] = None) -> pd.DataFrame:
     return df
 
 
-def make_split(
-    df: pd.DataFrame, val_size: float, seed: int
-) -> DatasetSplit:
+def make_split(df: pd.DataFrame, val_size: float, seed: int) -> DatasetSplit:
     train_df, val_df = train_test_split(df, test_size=val_size, random_state=seed, shuffle=True)
-    return DatasetSplit(train_df=train_df.reset_index(drop=True), val_df=val_df.reset_index(drop=True))
+    return DatasetSplit(
+        train_df=train_df.reset_index(drop=True), val_df=val_df.reset_index(drop=True)
+    )
 
 
 def extract_xy(df: pd.DataFrame) -> Tuple[np.ndarray, np.ndarray]:
