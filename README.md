@@ -1,26 +1,157 @@
-# Detecting toxic comments in online discussions
+# Toxic Comments Classification
 
-## Problem statement
+This project is about detecting toxic comments in text.
+The task is multi-label classification: one comment can belong to several toxicity categories at the same time.
 
-The goal of this project is to build a system that automatically detects toxic comments in online discussions.
-Toxic content includes insults, threats, obscene language, and hate speech.
+Labels:
 
-This is a **multi-label text classification** task: each comment may belong to several toxicity categories
-simultaneously.
+- toxic
+- severe_toxic
+- obscene
+- threat
+- insult
+- identity_hate
 
-**Labels (6):** `toxic`, `severe_toxic`, `obscene`, `threat`, `insult`, `identity_hate`.
+---
 
 ## Data
 
-Dataset: Kaggle competition **Jigsaw Toxic Comment Classification Challenge**.
+Dataset: **Jigsaw Toxic Comment Classification Challenge (Kaggle)**.
 
-The code expects the file:
+The dataset should be placed manually in:
 
-- `data/raw/train.csv.zip` (the Kaggle `train.csv` zipped)
+```
+data/raw/train.csv
+```
 
-Data is managed via **DVC**
+Required columns:
+
+- `comment_text` — text of the comment
+- label columns listed above
+
+DVC is **not** used in this project.
+
+---
+
+## Environment
+
+The project uses **Poetry**.
+
+Install dependencies:
+
+```bash
+poetry install
+```
+
+---
+
+## Training (Transformer)
+
+Training is done using Hydra configs.
+
+Main training config:
+
+```
+configs/train.yaml
+```
+
+Run training:
+
+```bash
+poetry run python -m toxic_comments.commands
+```
+
+Trained model will be saved to:
+
+```
+outputs/model/hf
+```
+
+---
+
+## Baseline Model
+
+Baseline model: **TF-IDF + Logistic Regression**.
+
+Baseline config:
+
+```
+configs/model/baseline.yaml
+```
+
+Run baseline training:
+
+```bash
+poetry run python -m toxic_comments.commands baseline
+```
+
+Baseline artifacts are saved to:
+
+```
+outputs/baseline/tfidf_logreg
+```
+
+---
+
+## Inference
+
+Inference config:
+
+```
+configs/infer.yaml
+```
+
+Run inference:
+
+```bash
+poetry run python -m toxic_comments.commands infer
+```
+
+You can override text from command line:
+
+```bash
+poetry run python -m toxic_comments.commands infer infer.text="this is a test comment"
+```
+
+---
+
+## MLflow
+
+MLflow is used to track experiments.
+
+Start MLflow UI:
+
+```bash
+poetry run mlflow ui --backend-store-uri sqlite:///mlflow.db
+```
+
+Open in browser:
+
+```
+http://127.0.0.1:5000
+```
+
+---
+
+## Model Export
+
+The transformer model can be exported to ONNX format.
+
+Export script:
+
+```
+toxic_comments/export_onnx.py
+```
+
+---
 
 ## Metrics
 
-Main metric: mean ROC-AUC across 6 labels.
-We also log per-class ROC-AUC and macro F1.
+Main metric:
+
+- mean ROC-AUC over 6 labels
+
+Also logged:
+
+- per-class ROC-AUC
+- macro F1-score

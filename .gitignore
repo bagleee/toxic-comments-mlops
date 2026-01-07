@@ -27,3 +27,15 @@ models/
 .DS_Store
 node_modules/
 node_modules/
+
+# mlflow
+mlruns/
+mlflow.db
+
+# hydra / outputs
+outputs/
+
+# local junk
+1/
+1.26.4
+3.20.1

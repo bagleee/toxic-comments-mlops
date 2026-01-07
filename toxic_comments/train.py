@@ -7,7 +7,7 @@ import hydra
 import mlflow
 import numpy as np
 from omegaconf import DictConfig, OmegaConf
-from pytorch_lightning import Trainer
+from pytorch_lightning import Callback, Trainer
 from pytorch_lightning.loggers import MLFlowLogger
 
 from toxic_comments.baseline import save_baseline, train_baseline
@@ -22,7 +22,7 @@ from toxic_comments.plotting import save_history_plots
 from toxic_comments.utils import ensure_data, get_git_commit_hash, mkdir_clean
 
 
-class HistoryCallback:
+class HistoryCallback(Callback):
     def __init__(self):
         self.history = {"train_loss": [], "val_loss": [], "val_auroc": []}
 
@@ -161,10 +161,16 @@ def main(cfg: DictConfig) -> None:
     train_path = Path(cfg.data.train_path)
     ensure_data(train_path, bool(cfg.data.use_dvc))
 
-    output_dir = Path(cfg.output_dir) / "model"
-    plots_dir = Path("plots")
+    run_dir = Path.cwd()  # hydra run dir (если hydra меняет cwd)
+    output_dir = run_dir / "model"
+    plots_dir = run_dir / "plots"
+
     mkdir_clean(output_dir)
     mkdir_clean(plots_dir)
+
+    print("run_dir:", run_dir.resolve())
+    print("output_dir:", output_dir.resolve())
+    print("plots_dir:", plots_dir.resolve())
 
     if str(cfg.model.name) == "baseline":
         _train_baseline(cfg, output_dir, plots_dir)

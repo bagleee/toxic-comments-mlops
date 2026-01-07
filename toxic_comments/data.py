@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional, Tuple
+from typing import Tuple
 
 import numpy as np
 import pandas as pd
@@ -17,14 +17,14 @@ class DatasetSplit:
     val_df: pd.DataFrame
 
 
-def load_train_csv(path: Path, max_rows: Optional[int] = None) -> pd.DataFrame:
-    df = pd.read_csv(path, compression="zip")
-    if max_rows is not None:
-        df = df.head(int(max_rows))
-    required = {"comment_text"} | set(LABELS)
-    missing = required - set(df.columns)
-    if missing:
-        raise ValueError(f"Missing required columns: {sorted(missing)}")
+def load_train_csv(path: Path, max_rows: int | None = None) -> pd.DataFrame:
+    path = Path(path)
+
+    if path.suffix == ".zip":
+        df = pd.read_csv(path, compression="zip", nrows=max_rows)
+    else:
+        df = pd.read_csv(path, nrows=max_rows)
+
     return df
 
 

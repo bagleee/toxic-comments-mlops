@@ -1,10 +1,9 @@
-name: baseline
-
-tfidf:
+baseline:
+  data_path: data/raw/train.csv
+  text_col: comment_text
+  label_col: toxic
+  test_size: 0.2
+  seed: 42
   max_features: 50000
-  ngram_range: [1, 2]
-  min_df: 2
-
-logreg:
+  ngram_max: 2
   C: 2.0
-  max_iter: 1000

@@ -16,7 +16,6 @@ scikit-learn = "^1.5.1"
 joblib = "^1.4.2"
 
 # Deep learning
-torch = "2.2.2"
 pytorch-lightning = "^2.3.3"
 torchmetrics = "^1.4.0"
 transformers = "^4.43.3"

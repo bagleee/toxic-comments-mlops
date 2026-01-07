@@ -1,6 +1,4 @@
-# If empty, uses outputs/model
 model_dir: outputs/model
 use_onnx: false
 
-# Provide text via CLI override: text="..."
 text: null

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import subprocess
+import zipfile
 from pathlib import Path
 from typing import Optional
 
@@ -17,22 +18,32 @@ def run_dvc_pull(path: Path) -> None:
     subprocess.run(["dvc", "pull", str(path)], check=True)
 
 
-def ensure_data(path: Path, use_dvc: bool) -> None:
-    if path.exists():
+def ensure_data(path: str | Path, use_dvc: bool) -> None:
+    path = Path(path)
+
+    if path.suffix == ".csv" and path.exists():
         return
 
-    if not use_dvc:
-        raise FileNotFoundError(
-            f"Data file not found: {path}. Put it there or enable DVC in config."
-        )
+    if path.suffix == ".zip" and path.exists():
+        with zipfile.ZipFile(path, "r") as zf:
+            zf.extractall(path.parent)
+        return
 
-    # Try pull via DVC
-    run_dvc_pull(path)
+    if path.suffix == ".zip":
+        csv_path = path.with_suffix("")  # train.csv.zip -> train.csv
+        if csv_path.exists():
+            return
 
-    if not path.exists():
-        raise FileNotFoundError(
-            f"After DVC pull, data file still not found: {path}. Check DVC remote setup."
-        )
+    if path.suffix == ".csv":
+        zip_path = path.with_suffix(path.suffix + ".zip")  # train.csv -> train.csv.zip
+        if zip_path.exists():
+            with zipfile.ZipFile(zip_path, "r") as zf:
+                zf.extractall(path.parent)
+            return
+
+    raise FileNotFoundError(
+        f"Data file not found: {path}. Put train.csv into {path.parent} or enable DVC in config."
+    )
 
 
 def mkdir_clean(path: Path) -> None:
